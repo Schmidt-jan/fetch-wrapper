@@ -1,5 +1,7 @@
 import {HttpsProxyAgent} from "https-proxy-agent";
-import fetch, {RequestInit, Response} from "node-fetch";
+import { RequestInfo, RequestInit, Response } from "node-fetch";
+
+const fetch = (url: RequestInfo, init?: RequestInit) =>  import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 
 export default class NodeWrapper {
     proxyAgent?: HttpsProxyAgent;
@@ -10,7 +12,7 @@ export default class NodeWrapper {
         }
     }
 
-    get = (url:string, options?: RequestInit): Promise<Response> => {
+    async get(url:string, options?: RequestInit): Promise<Response> {
         if (options) {
             return fetch(url, {agent: this.proxyAgent});
         }
