@@ -10,7 +10,7 @@ export default class NodeWrapper {
         }
     }
 
-    async get(url:string, options?: RequestInit): Promise<Response> {
+    get = (url:string, options?: RequestInit): Promise<Response> => {
         if (options) {
             return fetch(url, {agent: this.proxyAgent});
         }
